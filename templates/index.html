@@ -6,59 +6,65 @@
     <title>Downloader de YouTube</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
-        /* Configuração do fundo da página */
         body {
-            background-color: #253a3a; /* Fundo cinza escuro */
-            color: #ffffff; /* Texto branco */
+            background-color: #253a3a;
+            color: #ffffff;
             display: flex;
             flex-direction: column;
             align-items: center;
             margin: 0;
             min-height: 100vh;
         }
-
-        /* Logotipo e texto do topo */
         .header {
             width: 100%;
             display: flex;
             align-items: center;
             margin: 20px 0;
-            color: #f59403; /* Texto laranja */
+            color: #f59403;
         }
         .header img {
             width: 60px;
             height: 60px;
             margin-right: 15px;
         }
-
-        /* Configuração do container da aplicação */
         .container {
             max-width: 600px;
-            background: rgb(68, 106, 107); /* Fundo do container */
+            background: rgb(68, 106, 107);
             padding: 20px;
             border-radius: 10px;
-            border: 1px solid #f59403; /* Linha ao redor do container */
+            border: 1px solid #f59403;
         }
-
-        /* Rodapé com os dados */
         .footer {
-            width: 100%; /* Largura total */
-            text-align: left; /* Alinhamento à esquerda */
+            width: 100%;
+            text-align: left;
             padding: 10px;
             margin-top: auto;
             font-size: 14px;
-            color: #f59403; /* Texto laranja */
+            color: #f59403;
         }
     </style>
+    <script>
+        // Função para apagar mensagens flash e limpar o campo de URL
+        function clearFlashAndUrl() {
+            // Remove mensagem flash, se existir
+            const flashMessage = document.getElementById("flash-message");
+            if (flashMessage) {
+                flashMessage.remove(); // Remove o elemento da mensagem
+            }
+
+            // Limpa o campo URL, se estiver preenchido
+            const urlField = document.getElementById("url");
+            if (urlField && urlField.value) {
+                urlField.value = ""; // Limpa o valor do campo
+            }
+        }
+    </script>
 </head>
 <body>
-    <!-- Logotipo e título -->
     <div class="header">
         <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo da empresa">
         <h2>Sistema Gestão Youtuber</h2>
     </div>
-
-    <!-- Formulário -->
     <div class="container">
         <h2 class="text-center">Downloader de Vídeos do YouTube</h2>
         <form method="POST" action="/">
@@ -75,12 +81,12 @@
             </div>
             <div class="d-flex justify-content-between">
                 <button type="submit" class="btn btn-primary">Baixar</button>
-                <button type="submit" formaction="/clear" class="btn btn-secondary">Limpar</button>
+                <button type="button" class="btn btn-secondary" onclick="clearFlashAndUrl()">Limpar</button>
             </div>
         </form>
         {% with messages = get_flashed_messages() %}
             {% if messages %}
-                <div class="mt-3">
+                <div id="flash-message" class="mt-3">
                     {% for message in messages %}
                         <div class="alert alert-info">{{ message }}</div>
                     {% endfor %}
@@ -88,8 +94,6 @@
             {% endif %}
         {% endwith %}
     </div>
-
-    <!-- Rodapé -->
     <div class="footer">
         Desenvolvido por: Giovani José de Mendonça<br>
         Email: giovanimendonca@gmail.com<br>
